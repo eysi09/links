@@ -11,7 +11,11 @@ services:
       - name: http
         containerPort: 8080
     ingresses:
-      - path: /db
+      - path: /test
+        port: http
+        # Needs an id to work. E.g garden call links/link/1
+        # Returns 404 if no link with that id but you'll see the call is being received if you do garden logs links
+      - path: /link
         port: http
     env:
       REPOSITORY_ADDRESS: ":8080"

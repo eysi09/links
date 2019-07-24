@@ -15,5 +15,9 @@ services:
         port: http
     env:
       WEB_ADDRESS: ":8090"
-      WEB_REPOSITORY: "http://garden.local/db/"
-      WEB_ROUTER: "http://garden.local/router/"
+      # Use http://<svc_name>:<servicePort> to talk to other services in the cluster.
+      # servicePort defaults to containerPort if not specified.
+      WEB_REPOSITORY: "http://links:8080"
+      # Here we're using the external hostname since we're accessing the router
+      # from the web UI
+      WEB_ROUTER: "http://garden.local"

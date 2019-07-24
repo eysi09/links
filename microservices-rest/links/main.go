@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
 	"time"
-	"fmt"
 
 	"github.com/campoy/links/microservices-rest/repository"
 	"github.com/gorilla/mux"
@@ -35,7 +35,8 @@ func main() {
 	mux.HandleFunc("/link/", newLink).Methods("POST")
 	mux.HandleFunc("/link/{id}", getLink).Methods("GET")
 	mux.HandleFunc("/link/{id}", countVisit).Methods("POST")
-	// mux.HandleFunc("/db/test/", test)
+	// This works if there's no forward slash at the end of /test
+	mux.HandleFunc("/test", test).Methods("GET")
 	// mux.HandleFunc("/db/link/", newLink).Methods("POST")
 	// mux.HandleFunc("/db/link/{id}", getLink).Methods("GET")
 	// mux.HandleFunc("/db/link/{id}", countVisit).Methods("POST")
@@ -69,6 +70,7 @@ func newLink(w http.ResponseWriter, r *http.Request) {
 
 func getLink(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
+	log.Printf("getting link: %v", id)
 	link, err := links.Get(id)
 	if err != nil {
 		if err == repository.ErrNoSuchLink {

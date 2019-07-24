@@ -11,9 +11,11 @@ services:
       - name: http
         containerPort: 8085
     ingresses:
-      - path: /router
+      - path: /l
+        port: http
+      - path: /s
         port: http
     env:
       ROUTER_ADDRESS: ":8085"
-      REPOSITORY_ADDRESS: "http://garden.local/db/"
+      ROUTER_REPOSITORY: "http://links:8080"
 
